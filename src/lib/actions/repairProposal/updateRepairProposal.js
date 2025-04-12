@@ -4,12 +4,19 @@ import { httpRequest } from "@/lib/axios/axiosInstance";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-export async function updateCar(carId, _currentState, formData) {
+export async function updateRepairProposal(
+  proposalId,
+  _currentState,
+  formData
+) {
   try {
     const cookieStore = await cookies();
     const response = await httpRequest.put(
-      `/cars/${carId}`,
-      { name: formData.get("name") },
+      `/repair-proposals/${proposalId}`,
+      {
+        car_id: formData.get("car_id"),
+        description: formData.get("description"),
+      },
       {
         headers: {
           "Content-Type": "application/json",
@@ -19,7 +26,7 @@ export async function updateCar(carId, _currentState, formData) {
       }
     );
 
-    revalidatePath("/car");
+    revalidatePath("/repair-proposal");
 
     return {
       success: true,
@@ -28,7 +35,8 @@ export async function updateCar(carId, _currentState, formData) {
     };
   } catch (error) {
     const errorMessage =
-      error?.response?.data?.message || "Update Car failed. Please try again.";
+      error?.response?.data?.message ||
+      "Update Repair Proposal failed. Please try again.";
     return { success: false, error: errorMessage };
   }
 }

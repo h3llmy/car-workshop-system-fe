@@ -52,6 +52,9 @@ const RepairProposalForm = ({ action, header, cars }) => {
           required
         />
       </div>
+      {state.error && (
+        <div className="mb-5 text-red-500 text-sm">{state.error}</div>
+      )}
       <div className="flex flex-col w-full justify-end gap-2 sm:flex-row sm:gap-4">
         <button
           type="button"

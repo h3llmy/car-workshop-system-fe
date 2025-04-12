@@ -8,11 +8,20 @@ const Page = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  const repairProposals = await httpRequest.get("/repair-proposals", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const [repairProposals, user] = await Promise.all([
+    httpRequest.get("/repair-proposals", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+    httpRequest.get("/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  ]);
+
+  console.log(user.data.data.roles);
 
   return (
     <div className="space-y-4">
@@ -28,6 +37,7 @@ const Page = async () => {
       <RepairProposalTable
         data={repairProposals.data.data.data}
         token={token}
+        user={user.data.data}
       />
     </div>
   );

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const RepairProposalTable = ({ data, token }) => {
+const RepairProposalTable = ({ data, token, user }) => {
   const columns = [
     { label: "Car Name", key: "car.name" },
     {
@@ -54,6 +54,15 @@ const RepairProposalTable = ({ data, token }) => {
       >
         Edit
       </Link>
+
+      {user.roles.map((d) => d.name).includes("super admin") && (
+        <Link
+          href={`/repair-proposal/approve/${row.id}`}
+          className="text-green-600 hover:underline"
+        >
+          Approve
+        </Link>
+      )}
       <button
         onClick={() => handleDelete(row.id)}
         className="text-red-600 hover:underline"
