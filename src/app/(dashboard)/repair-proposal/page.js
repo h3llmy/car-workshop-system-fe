@@ -21,8 +21,6 @@ const Page = async () => {
     }),
   ]);
 
-  console.log(user.data.data.roles);
-
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">

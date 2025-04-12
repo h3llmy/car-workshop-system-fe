@@ -27,7 +27,6 @@ export const CarTable = ({ data, token }) => {
       router.refresh();
     } catch (error) {
       alert("Failed to delete car.");
-      console.error(error);
     }
   };
 
