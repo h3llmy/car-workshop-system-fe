@@ -62,6 +62,12 @@ const RepairProposalTable = ({ data, token, user }) => {
           Approve
         </Link>
       )}
+      <Link
+        href={`/complain/create/${row.id}`}
+        className="text-yellow-600 hover:underline"
+      >
+        Complain
+      </Link>
       <button
         onClick={() => handleDelete(row.id)}
         className="text-red-600 hover:underline"
